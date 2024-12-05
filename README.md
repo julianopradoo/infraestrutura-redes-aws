@@ -60,6 +60,27 @@ Projeto acadêmico com o objetivo de desenvolver uma infraestrutura de rede para
 <details>
 <summary>Instâncias na AWS</summary>
 </br>
+
+## Passo a passo para criar instâncias na AWS e seus respectivos IPs
+- AWS student login
+- Módulos > Start Lab > botão AWS (quando estiver verde) > EC2
+- Criar Máquinas.(3 máquinas) -> executar instancia > colocar nome > escolher debian > 
+- Criar três Ips elásticos.
+- Painel Ec2 > Ips Elasticos >
+
+Máquinas: EC2-LOAD, EC2-SERVER
+
+Chave: ChaveAWS.pem
+
+IPS: Endereço IP elástico: 100.29.171.248 > EC2-LOAD
+O endereço IP elástico 100.29.171.248 foi associado ao instância i-0dde61b8cc0cff88d
+
+IPS: Endereço IP elástico: 18.215.2.145 > EC2-SERVER
+O endereço IP elástico 18.215.2.145 foi associado ao instância i-08af4a7faefc5574f
+
+
+- Começar a montar as máquinas. (Aqui utulizaremos MobaXterm, mas você pode usar qualquer máquina virtual de sua escolha.
+
 </details>
 
 
