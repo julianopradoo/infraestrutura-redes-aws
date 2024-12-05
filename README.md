@@ -224,7 +224,7 @@ LOG=true # VARIAVEL PARA EXIBIÇÃO LOGS
 ``` sh
 docker-compose up --build -d
 ```
-- Após esses passos nossa aplicação estára funcionando no endereço http://18.215.2.145/
+- Após esses passos nossa aplicação estará funcionando no endereço http://18.215.2.145/
 
  
 </details>
@@ -232,6 +232,54 @@ docker-compose up --build -d
 <details>
 <summary>Load Balancer e Proxy Reverse</summary>
 </br>
+
+## Criar e configurar a instância EC2 que irá fazer o proxy reverso e o load balance com NGINX
+
+- Crie uma instância EC2 com as seguintes configurações:
+
+``` sh
+Sistema Operacional - Debian (64 bits)
+Tipo de instância - t2.micro
+Grupo de segurança - Libere as portas 443 (HTTPS), 80 (HTTP), 22(SSH) e 1194 (UDP)
+Armazenamento - 1x 30 GiB gp3
+```
+- Conecte-se a instância da forma que preferir.
+- Dentro da máquina executar os comandos a seguir para configurar o Nginx.
+
+``` sh
+sudo apt update
+sudo apt install nginx -y
+sudo apt upgrade
+```
+
+- Edite o arquivo de configuração do NGINX:
+``` sh
+sudo nano /etc/nginx/sites-available/default
+```
+- Configure o proxy reverso para direcionar o tráfego para os containers no EC2_SERVER
+```sh
+upstream backend_servers {
+    server 18.215.2.145:8001;
+    server 18.215.2.145:8002;
+    server 18.215.2.145:8003;
+}
+
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://backend_servers;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+```
+
+
+    
 </details>
 
 
