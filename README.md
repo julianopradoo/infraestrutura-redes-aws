@@ -58,9 +58,43 @@ Projeto acadêmico com o objetivo de desenvolver uma infraestrutura de rede para
 ## Iniciando 
 
 <details>
+<summary>Instâncias na AWS</summary>
+</br>
+</details>
+
+
+<details>
+<summary>Docker</summary>
+</br>
+</details>
+
+
+<details>
+<summary>VPN</summary>
+</br>
+</details>
+
+
+
+
+<details>
+<summary>Banco de Dados</summary>
+</br>
+</details>
+
+
+
+
+<details>
+<summary>Load Balancer e Proxy Reverse</summary>
+</br>
+</details>
+
+
+
+<details>
 <summary>........</summary>
 </br>
-
 </details>
 
 
