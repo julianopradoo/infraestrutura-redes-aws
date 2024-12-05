@@ -278,8 +278,94 @@ server {
 
 ```
 
+- Dentro da pasta /crudRedes/client crie um arquivo chamado nginx.conf para setar as configurações 
+``` sh
+events {}
 
-    
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    # Frontend - Porta 80
+    server {
+        listen 80;
+        server_name 18.215.2.145;
+
+        root /usr/share/nginx/html;
+
+        # Configuração para arquivos estáticos do frontend
+        location / {
+            try_files $uri /index.html;
+
+            # Configuração de CORS (geral)
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE';
+            add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization, X-Requested-With';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+
+            # Lidar com requisições OPTIONS (preflight)
+            if ($request_method = 'OPTIONS') {
+                add_header 'Access-Control-Allow-Origin' '*';
+                add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE';
+                add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization, X-Requested-With';
+                add_header 'Access-Control-Max-Age' 3600;
+                return 204;
+            }
+        }
+
+        # Cabeçalhos para arquivos de manifesto, HTML, JSON, etc. (sem cache)
+        location ~* \.(?:manifest|appcache|html?|xml|json)$ {
+            expires -1;
+            access_log off;
+        }
+
+        # Cabeçalhos para arquivos estáticos com cache
+        location ~* \.(?:css|js|woff2?|eot|ttf|otf|svg|png|jpg|jpeg|gif|ico)$ {
+            expires 6M;
+            access_log off;
+        }
+
+        error_page 404 /index.html;
+    }
+
+    # Backend - Porta 3000
+    server {
+        listen 3000;
+        server_name localhost;
+
+        # Configuração para redirecionar requisições ao backend
+        location /cadastro/ {
+            proxy_pass http://18.215.2.145:3000/cadastro/;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header Host $host;
+
+            # Configuração de CORS para o backend
+            add_header 'Access-Control-Allow-Origin' '*'; # Ou substitua pelo domínio do frontend, se necessário
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE';
+            add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization, X-Requested-With';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+
+            # Lidar com requisições OPTIONS (preflight)
+            if ($request_method = 'OPTIONS') {
+                add_header 'Access-Control-Allow-Origin' '*';
+                add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE';
+                add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization, X-Requested-With';
+                add_header 'Access-Control-Max-Age' 3600;
+                return 204;
+            }
+        }
+    }
+}
+```
+- Reinicie o nginx para aplicar as configurações
+``` sh
+sudo systemctl restart nginx
+```
+
 </details>
 
 
