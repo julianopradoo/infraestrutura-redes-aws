@@ -13,7 +13,7 @@ Projeto acadêmico com o objetivo de desenvolver uma infraestrutura de rede para
 ## Topologia
 
 <p align="center">
-    <img src="./Arquivos/foto-juliano.png" alt="Descrição da Imagem" width="250"/>
+    <img src="./Imagens/topologiaRedes.png" alt="Descrição da Imagem" width="850"/>
 </p>
 
 ## Estrutura do Projeto
