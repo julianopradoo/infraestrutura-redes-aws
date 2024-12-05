@@ -98,8 +98,8 @@ git clone https://github.com/julianopradoo/crudRedes
 ```
 
 - Vá para o diretório ~/crudRedes/client e crie um arquivo chamado Dockerfile para buildar nosso frontend com as configurações abaixo.
- 
- ``` sh
+
+``` sh
 FROM nginx:stable-alpine
 
 # Copiar os arquivos de configuração do Nginx
@@ -116,7 +116,7 @@ EXPOSE 80
 
 - Vá para o diretório ~/crudRedes/backend e crie um arquivo chamado Dockerfile para buildar nosso backend com as configurações abaixo.
 
-  ``` sh
+``` sh
 # Use a versão leve do Node.js baseada em Alpine
 FROM node:18-alpine
 
@@ -137,7 +137,7 @@ EXPOSE 3000
 
 # Comando para iniciar o servidor Node.js
 CMD ["node", "index.js"]
-  ```
+```
 
 - Dentro de crudRedes, na raiz do peojeto, crie um arquivo chamado compose.yaml com as configurações abaixo. Esse arquivo será responsável pela criação do nosso container com os serviços desejados.
 
