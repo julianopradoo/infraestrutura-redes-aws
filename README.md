@@ -485,7 +485,7 @@ scp -i ChaveAWS.pem admin@100.29.171.248:/home/admin/chave .
 </details>
 
 
-
+- Com esse passo a passo relizaremos a configuração completa de uma infraestrutura de redes em uma máquina virtual utilizando AWS.
 
 
 
