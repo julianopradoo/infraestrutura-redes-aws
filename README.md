@@ -393,12 +393,27 @@ sudo systemctl restart nginx
 <details>
 <summary>VPN</summary>
 </br>
-</details>
 
+## Instalação VPN
 
-<details>
-<summary>........</summary>
-</br>
+- Para relizarmos a instalação da VPN devemos segir os passoa abaixo:
+
+``` sh
+Sudo apt update
+Sudo apt install openvpn -y 
+```
+- Uma vez instalado, ele automaticamente cria uma pasta com o nome de "openvpn". O usuário debian não tem permissão de escrita dentro dela, ele apenas pode acessar. Para podermos escrever temos que ter permissão de ADM. Ou eu mudo a permissão dos arquivos ou eu mexo logado com o root para poder executar os arquivos.
+
+- Acessando a pasta openvpn e listando os arquivos, percebemos que automaticamente é criado dois diretórios, um chamado client, e um chamado server que servem para adicionarmos arquivo vos referentes a esses contextos dentro deles.
+
+- Para não complicar, vamos remover esses dois diretórios com os comandos
+
+``` sh
+Rm -rf client/
+Rm -rf server/
+
+```
+    
 </details>
 
 
