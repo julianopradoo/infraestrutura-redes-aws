@@ -411,9 +411,77 @@ Sudo apt install openvpn -y
 ``` sh
 Rm -rf client/
 Rm -rf server/
-
 ```
-    
+
+- Agora vamos fazer a configuração:
+
+``` sh
+nano server.conf
+touch server.conf
+Sudo vim server.conf 
+```
+- Aqui dentro faremos a configuração do servidor, para isso precisamos criar a pasta com arquivo de texto.
+
+```sh
+{
+dev tun 
+ifconfig 192.168.0.9	192.168.0.10
+secret /etc/openvpn/chave
+port 1194
+proto udp  
+comp-lzo
+verb 4
+keepalive 10 120
+persist-key
+persist-tun
+float
+cipher AES256
+}
+```
+
+- Agora vamos copiar a mesma pasta para o caminho client.conf
+
+``` sh
+Cat server.conf > client.conf 
+```
+
+- Agora devemos editar client.conf
+- Precisamos inverter a ordem dos ips no “ifconfig” e adicionar a linha “remote”, que é o IP publico do servidor 
+
+``` sh
+vim client.conf
+
+{
+dev tun 
+ifconfig 192.168.0.10	192.168.0.9
+remote 100.29.171.248
+secret  chave
+port 1194
+proto udp  
+comp-lzo
+verb 4
+keepalive 10 120
+persist-key
+persist-tun
+float
+cipher AES256
+}
+```
+- Agora client.conf está configurado corretamente.
+
+## Criando a chave
+
+- Comando para criar a chave aleatória para nossa vpn. Lembrando que “chave” nesse comando representa o nome do diretório que quero criar.
+
+``` sh
+openvpn –genkey –secret chave 
+```
+- Esse arquivo, eu preciso copiar para o lado do cliente, pois se eu tentar gerar uma nova chave, ela será randômica. Para isso vamos usar o comando scp.
+
+``` sh
+scp -i ChaveAWS.pem admin@100.29.171.248:/home/admin/chave .
+```
+
 </details>
 
 
